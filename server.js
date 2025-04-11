@@ -201,6 +201,8 @@ app.post('/api/addActivity', (req, res) =>{
 
 
 // Iniciar el servidorñ
-app.listen(port, () => {
-    console.log(`Servidor API escuchando en http://localhost:${port}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
+
