@@ -3,15 +3,12 @@ const mysql = require('mysql2');
 const app = express();
 const port = 3000;
 
-const db = mysql.createPool({
+const db = mysql.createConnection({
     host: 'yamanote.proxy.rlwy.net',
     user: 'root',
     password: 'yWztzoIWoEBknblOiCcBcMXkDOvSqThG',
     database: 'railway',
-    port: 35953,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
+    port: 35953
 });
 
 
