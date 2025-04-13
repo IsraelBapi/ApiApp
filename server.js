@@ -592,24 +592,37 @@ app.get('/api/sales/:sale_id/activities', (req, res) => {
     });
 });
 
-app.get('/api/salesUser/:userId', (req, res) => {
+app.get('/sales/:userId', async (req, res) => {
     const userId = req.params.userId;
 
-    const sql = `
-        SELECT sales.*, clients.name, clients.lastname
-        FROM sales
-        JOIN clients ON sales.client_id = clients.client_id
-        WHERE sales.user_id = ?
+    const query = `
+        SELECT 
+            s.sale_id,
+            s.sale_date,
+            s.sale_price,
+            c.first_name,
+            c.last_name,
+            ca.make,
+            ca.model,
+            ca.year,
+            ca.price AS listed_price
+        FROM 
+            sales s
+        JOIN 
+            clients c ON s.client_id = c.client_id
+        JOIN 
+            cars ca ON s.car_id = ca.car_id
+        WHERE 
+            s.user_id = ?;
     `;
-
-    db.query(sql, [userId], (err, results) => {
+    db.query(query, [userId], (err, results) => {
         if (err) {
-            return res.status(500).json({ error: 'Error al obtener las ventas del usuario' });
+            console.error('Error al obtener las ventas:', err);
+            return res.status(500).json({ error: 'Error al obtener las ventas' });
         }
         res.json(results);
     });
 });
-
 
 
 
