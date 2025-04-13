@@ -592,6 +592,26 @@ app.get('/api/sales/:sale_id/activities', (req, res) => {
     });
 });
 
+app.get('/api/salesUser/:userId', (req, res) => {
+    const userId = req.params.userId;
+
+    const sql = `
+        SELECT sales.*, clients.name, clients.lastname
+        FROM sales
+        JOIN clients ON sales.client_id = clients.client_id
+        WHERE sales.user_id = ?
+    `;
+
+    db.query(sql, [userId], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Error al obtener las ventas del usuario' });
+        }
+        res.json(results);
+    });
+});
+
+
+
 
 
 // Iniciar el servidorñ
