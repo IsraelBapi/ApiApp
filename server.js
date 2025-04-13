@@ -592,7 +592,7 @@ app.get('/api/sales/:sale_id/activities', (req, res) => {
     });
 });
 
-app.get('/salesUser/:userId', async (req, res) => {
+app.get('/salesUser/:userId',(req, res) => {
     const userId = req.params.userId;
 
     const query = `
