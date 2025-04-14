@@ -25,7 +25,7 @@ app.use(express.json());
 
 // Ruta para obtener todos los coches
 app.get('/api/cars', (req, res) => {
-    db.query('SELECT * FROM cars', (err, results) => {
+    db.query('SELECT car_id, make, model, year, price FROM cars', (err, results) => {
         if (err) {
         return res.status(500).json({ error: 'Error al obtener los coches' });
         }
