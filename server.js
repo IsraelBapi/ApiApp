@@ -162,10 +162,6 @@ app.get('/api/activitiesUser/:userId', (req, res) => {
     });
 });
 
-
-
-
-
 // Ruta para registrar un cliente 
 app.post('/api/clients', (req, res) => {
     console.log("Solicitud recibida:", req.body); 
@@ -197,6 +193,41 @@ app.post('/api/addActivity', (req, res) =>{
         }
         res.status(201).json({ message: 'Actividad agregada con éxito', activity_id: results.insertId})
     })
+});
+
+app.get('/api/salesUser/:userId', (req, res) => {
+    const userId = req.params.userId;
+    const query = `
+        SELECT
+            s.sale_id,
+            s.sale_date,
+            s.sale_price,
+            s.client_id,
+            s.car_id,
+            c.first_name AS client_first_name,
+            c.last_name AS client_last_name,
+            c.phone AS client_phone,
+            c.email AS client_email,
+            car.make AS car_make,
+            car.model AS car_model,
+            car.year AS car_year,
+            car.price AS car_list_price
+        FROM
+            sales s
+        JOIN
+            clients c ON s.client_id = c.client_id
+        JOIN
+            cars car ON s.car_id = car.car_id
+        WHERE
+            s.user_id = ?
+    `;
+    
+    db.query(query, [userId], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Error al obtener las ventas del usuario' });
+        }
+        res.json(results);
+    });
 });
 
 
