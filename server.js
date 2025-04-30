@@ -3,6 +3,13 @@ const mysql = require('mysql2');
 const app = express();
 const port = 3000;
 
+const cors = require('cors');
+const axios = require('axios');
+
+app.use(cors());
+app.use(express.json());
+
+
 const db = mysql.createConnection({
     host: 'yamanote.proxy.rlwy.net',
     user: 'root',
