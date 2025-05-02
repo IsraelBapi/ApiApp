@@ -12,7 +12,6 @@ app.use(express.json());
 const inventoryData = {};  
 let solicitudContador = 1;
 
-
 app.post('/update', (req, res) => {
     const { sku, inventory } = req.body;
     if (!sku || inventory === undefined) return res.status(400).json({ error: 'Faltan datos' });
