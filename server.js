@@ -27,8 +27,7 @@ app.post('/ejecutar-rpa', async (req, res) => {
     try {
 
     const authResp = await axios.post('https://zapata.my.automationanywhere.digital/v2/authentication', {
-        username: 'mmata@zapata.com.mx',
-        password: 'RPa22062023#'
+
     });
 
     const token = authResp.data.token;
