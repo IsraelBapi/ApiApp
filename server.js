@@ -3,7 +3,6 @@ const mysql = require('mysql2');
 const app = express();
 const port = 3000;
 
-
 const db = mysql.createConnection({
     host: 'yamanote.proxy.rlwy.net',
     user: 'root',
@@ -222,7 +221,7 @@ app.get('/api/salesUser/:userId', (req, res) => {
         WHERE
             s.user_id = ?
     `;
-    
+
     db.query(query, [userId], (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Error al obtener las ventas del usuario' });
@@ -235,6 +234,5 @@ app.get('/api/salesUser/:userId', (req, res) => {
 // Iniciar el servidorñ
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
-
